@@ -1,0 +1,9 @@
+
+# Vim
+*.swp
+*~
+
+.vagrant
+
+vagrant-filesystem-mounts.rb
+

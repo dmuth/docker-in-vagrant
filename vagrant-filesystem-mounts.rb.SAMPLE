@@ -1,0 +1,24 @@
+
+
+def load_mounts(config)
+    #
+    # Mount our current directory in /vagrant (default)
+    #
+    config.vm.synced_folder ".", "/vagrant"
+
+
+    #
+    # Mount any additional directories.
+    # My personal recommendation is not to share your entire home directory, but
+    # instead create a directory such as "development/" and share that directory instead.
+    #
+    # NOTE: Paths inside Vagrant must be identical to what they are on the host's filesystem.
+    # Otherwise, trying to mount volumes with Docker's -v switch will not work correctly.
+    #
+    #config.vm.synced_folder "#{ENV['HOME']}", "#{ENV['HOME']}"
+    config.vm.synced_folder "#{ENV['HOME']}/development", "#{ENV['HOME']}/development"
+
+end
+
+
+
