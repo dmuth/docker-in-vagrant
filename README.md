@@ -45,18 +45,6 @@ Did you add the key to `ssh-agent`?  If so, did you destroy and rebuild the inst
 I am trying to reproduce this reliably, but it seems that this happens when sshd gets too many incoming connections at once!  If it does happen to you, just run the command again.  Docker commands such as `up` and `kill` are idempotent, so running them more than once should not cause any harm.
 
 
-## FAQ: After rebuilding the machine, I see strange behavior in Grafana, such as "Frontend not running"
-
-I've experienced this myself, and I haven't been able to reliably reproduce it, but a few things seem
-to have helped:
-
-- Removing/adding the data source for Loki in Grafana
-- Going to the bottom of the configuration page for the Loki data source, and clicking "Save and Test"
-- Editing each graph in Grafana, going into the query, and hitting "ctrl-enter" to resubmit the query.  Yes, that seems weird to me too.
-
-I expect to update this section as I perform more troubleshooting over the life of this app.
-
-
 ## FAQ: I get an error saying "WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!"
 
 It's all good--it means you have a reference to the VM sitting in your `$HOME/.ssh/known_hosts` file.
