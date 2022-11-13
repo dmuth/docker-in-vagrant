@@ -5,5 +5,5 @@
 
 .vagrant
 
-vagrant-filesystem-mounts.rb
+Vagrantfile
 

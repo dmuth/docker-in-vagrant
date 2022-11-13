@@ -10,14 +10,14 @@ set -o pipefail
 # Change to our script's parent directory
 pushd $(dirname $0)/..  > /dev/null
 
-MOUNT_FILE="vagrant-filesystem-mounts.rb"
-if test ! -f "${MOUNT_FILE}"
+CONFIG_FILE="Vagrantfile"
+if test ! -f "${CONFIG_FILE}"
 then
     echo "! "
-    echo "! File ${MOUNT_FILE} does not exist!"
+    echo "! File ${CONFIG_FILE} does not exist!"
     echo "! "
-    echo "! Try copying ${MOUNT_FILE}.SAMPLE to ${MOUNT_FILE}, "
-    echo "! editing the mounts in that file, and run this script again."
+    echo "! Try copying ${CONFIG_FILE}.SAMPLE to ${CONFIG_FILE}, "
+    echo "! editing the config in that file, and run this script again."
     echo "! "
     exit 1
 fi
