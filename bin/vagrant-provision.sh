@@ -22,6 +22,8 @@ then
 fi
 
 echo "MaxStartups 100:30:100" > /etc/ssh/sshd_config.d/max_startups.conf
+echo "MaxSessions 100" >> /etc/ssh/sshd_config.d/max_startups.conf
+
 sshd -T |grep -i maxstartups
 
 systemctl restart sshd
