@@ -9,6 +9,7 @@ set -e
 apt update
 
 apt install -y docker.io docker-compose
+apt install -y swapspace
 
 adduser vagrant docker && RETVAL=$? || RETVAL=$?
 if test ${RETVAL} -eq 1
