@@ -11,15 +11,13 @@ set -o pipefail
 pushd $(dirname $0)/..  > /dev/null
 
 CONFIG_FILE="Vagrantfile"
+CONFIG_FILE_SAMPLE="Vagrantfile.sample"
 if test ! -f "${CONFIG_FILE}"
 then
-    echo "! "
-    echo "! File ${CONFIG_FILE} does not exist!"
-    echo "! "
-    echo "! Try copying ${CONFIG_FILE}.SAMPLE to ${CONFIG_FILE}, "
-    echo "! editing the config in that file, and run this script again."
-    echo "! "
-    exit 1
+    echo "# "
+    echo "# File ${CONFIG_FILE} does not exist, copying in ${CONFIG_FILE_SAMPLE}..."
+    echo "# "
+    cp ${CONFIG_FILE_SAMPLE} ${CONFIG_FILE}
 fi
 
 
