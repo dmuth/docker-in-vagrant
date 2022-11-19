@@ -8,4 +8,5 @@
 Vagrantfile
 
 vagrant-apt-cache
+vagrant-docker-images
 
