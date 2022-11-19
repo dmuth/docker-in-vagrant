@@ -8,6 +8,15 @@ set -e
 
 apt update
 
+echo "# "
+echo "# Downloading packages into local cache..."
+echo "# "
+apt install -dy docker.io docker-compose
+apt install -dy swapspace
+
+echo "# "
+echo "# Installing packages from cache..."
+echo "# "
 apt install -y docker.io docker-compose
 apt install -y swapspace
 
