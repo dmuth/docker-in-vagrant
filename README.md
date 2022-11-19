@@ -2,6 +2,7 @@
 # Docker in Vagrant
 
 <img src="./img/logo.png" align="right" width="250" />
+
 This project lets you deploy Docker inside of a Vagrant VM in Virtualbox.
 
 It is intended as a replacement for Docker Desktop for Mac OS/X users.  I've tested it with some of my open source projects, including [FastAPI Httpbin](https://github.com/dmuth/fastapi-httpbin) and [Grafana Playground](https://github.com/dmuth/grafana-playground).  I'd like to think it's bug-free, but if there are any issues, my contact info is at the bottom of this README.
