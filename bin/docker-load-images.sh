@@ -23,7 +23,16 @@ echo "# Importing Docker images.  This may take some time..."
 for FILE in *.image
 do
 
-    echo "# Loading image ${FILE}..."
+    IMAGE=$(echo $FILE | sed -e "s/.image$//" -e "s|_|/|")
+    FOUND=$(docker images $IMAGE | sed -n '2,$p')
+
+    if test "${FOUND}"
+    then
+        echo "# Image ${IMAGE} already present, skipping!"
+        continue
+    fi
+
+    echo "# Loading image ${FILE} (${IMAGE})..."
     cat ${FILE} | zcat | pv | docker load 
 
 done
