@@ -12,13 +12,13 @@ echo "# "
 echo "# Downloading packages into local cache..."
 echo "# "
 apt install -dy docker.io docker-compose
-apt install -dy swapspace
+apt install -dy swapspace net-tools
 
 echo "# "
 echo "# Installing packages from cache..."
 echo "# "
 apt install -y docker.io docker-compose
-apt install -y swapspace
+apt install -y swapspace net-tools
 
 adduser vagrant docker && RETVAL=$? || RETVAL=$?
 if test ${RETVAL} -eq 1
