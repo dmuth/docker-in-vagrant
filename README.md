@@ -13,7 +13,18 @@ It is intended as a replacement for Docker Desktop for Mac OS/X users.  I've tes
 - [Docker CLI tools](https://formulae.brew.sh/formula/docker)
 - [Virtualbox](https://www.virtualbox.org/)
 - [Vagrant](https://www.vagrantup.com/)
+- [Pipeviewer](https://catonmat.net/unix-utilities-pipe-viewer)
+  - This is used for watching progress.  Install with `brew install pv`.
 - `ssh-agent` should be setup
+
+
+## Features
+
+- Easily spin up a VM with Docker already installed and running, using `bin/start.sh`.
+- Packages installed via `yum` will be cached to disk outside of the VM, making future builds less network intensive.
+- Sshd is configured to support up to 100 sessions to speed up operations with `docker-compose`.
+- Docker images can be saved to disk outside the VM with `docker-save-images.sh`.
+- Docker images will be automatically loaded from disk outside the VM at startup with `docker-load-images.sh`.
 
 
 ## Installation
@@ -35,6 +46,8 @@ they will be sent to the Docker daemon running in the VM over SSH, and results w
 - `bin/stop.sh`  - This stops the VM temporarily.
 - `bin/load-ssh-key.sh` - This loads the SSH key into your environment.
 - `bin/destroy.sh` - This destroys the VM.
+- `bin/docker-load-images.sh` - This loads Docker images which were saved outside of the VM. Used by `start.sh`.
+- `bin/docker-save-images.sh` - Save existing Docker images outside of the VM. Run manually.
 
 
 ## FAQ: You get a "Permission denied (public key)" error when trying to use a Docker command.
