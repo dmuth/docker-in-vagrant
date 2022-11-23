@@ -84,6 +84,18 @@ echo "# "
 echo "# ...it will make SSH connections persistent which should speed up Docker commands."
 echo "# "
 
+echo "# "
+echo "# Also consider adding these aliases to your .bashrc file to make management of this VM easier: "
+echo "# "
+echo "# alias docker-status='$(pwd)/bin/status.sh'"
+echo "# alias docker-check-time-offset='date; docker run -it alpine date; date'"
+echo "# alias docker-start='$(pwd)/bin/start.sh'"
+echo "# alias docker-stop='$(pwd)/bin/stop.sh'"
+echo "# alias docker-restart='$(pwd)/bin/restart.sh'"
+echo "# alias docker-destroy='$(pwd)/bin/destroy.sh'"
+echo "# alias docker-ssh='$(pwd)/bin/ssh.sh'"
+echo "# "
+
 echo "# Done!"
 
 

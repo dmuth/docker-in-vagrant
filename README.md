@@ -33,8 +33,9 @@ It is intended as a replacement for Docker Desktop for Mac OS/X users.  I've tes
 - Run the script `./bin/start.sh` to start the VM.
   - This will also configure the VM so that Docker is installed and can be run as a non-root user, SSH is set up to accept more simultaenous connections, etc.
 - The script will prompt you to do this, but you should add the SSH key to your agent by putting something like this inside your `.bashrc` or similar:
-  - `ssh-add PATH_TO_THIS_DIRECTORY/.vagrant/machines/default/virtualbox/private_key`
   - `export DOCKER_HOST=ssh://vagrant@127.0.0.1:2222"`
+- The script will also prompt you to add configuration to `$HOME/.ssh/config` so you can connect to the VM without being prompted for a password, dealing with SSH key issues, or getting "this host key has changed" warnings.
+- Finally, the script will print out some aliases to put in `$HOME/.bashrc`, which will make managing the VM easier in the future.
 
 When the above steps are done, you can now run commands like `docker ps` natively in OS/X,
 they will be sent to the Docker daemon running in the VM over SSH, and results will be returned.
@@ -42,9 +43,10 @@ they will be sent to the Docker daemon running in the VM over SSH, and results w
 
 ### Other Useful Utilities
 
+- `bin/status.sh` - Reports back the status of the VM
 - `bin/start.sh` - Already covered, this starts up the VM and loads the SSH key.
+- `bin/restart.sh` - Restart the VM.  Will not start it if stopped.
 - `bin/stop.sh`  - This stops the VM temporarily.
-- `bin/load-ssh-key.sh` - This loads the SSH key into your environment.
 - `bin/destroy.sh` - This destroys the VM.
 - `bin/docker-load-images.sh` - This loads Docker images which were saved outside of the VM. Used by `start.sh`.
 - `bin/docker-save-images.sh` - Save existing Docker images outside of the VM. Run manually.
