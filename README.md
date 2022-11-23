@@ -87,15 +87,39 @@ line with something like this:
 
 If you are trying to do stuff with many containers at once, you may need a higher [MaxStartups value](https://stackoverflow.com/questions/4812134/in-sshd-configuration-what-does-maxstartups-103060-mean) in `/etc/ssh/sshd_config`.  By default it is set to `100:30:100`, which should handle most cases, but if the value needs to be increased, just be sure to run `systemctl restart sshd` after doing so.
 
-## FAQ: Will Splunk Work?
 
-Probably not.  I tried spinning up an instance of [Splunk Lab](https://github.com/dmuth/splunk-lab), and saw no logs making it into Splunk and plenty of these errors:
+## FAQ: Are there bugs?
+
+Unfortunately, yes.  There seem to be some low-level filesystem issues that trip up a few things.  In detail:
+
+
+### Splunk Lab Issues
+
+I tried spinning up an instance of [Splunk Lab](https://github.com/dmuth/splunk-lab), and saw no logs making it into Splunk and plenty of these errors:
 
 ```
 11-15-2022 01:45:31.042 +0000 ERROR StreamGroup [217 IndexerTPoolWorker-0] - failed to drain remainder total_sz=24 bytes_freed=7977 avg_bytes_per_iv=332 sth=0x7fb586dfdba0: [1668476729, /opt/splunk/var/lib/splunk/_internaldb/db/hot_v1_1, 0x7fb587f7e840] reason=st_sync failed rc=-6 warm_rc=[-35,1]
 ```
 
-My speculation is that Splunk does some low-level stuff with the filesystem for files it monitors, and VirtualBox fails to implement that in a way Splunk is expecting.  Insights welcome.
+I am still troubleshooting this.
+
+
+## Httpbin Issues
+
+My [FastAPI Httpbin project](https://github.com/dmuth/fastapi-httpbin) doesn't behave right when
+run in development mode in a Docker container spawned by this app.  Specifically, the functionality
+of FastAPI to reload itself when a file is changed does not seem to work.  For now, the workaround
+is to restart the FastAPI server when new changes are to be tested, or to not run it in a container 
+in the first place.
+
+Production use is unaffected.
+
+
+## FAQ: Are there any other issues
+
+
+
+
 
 
 ## Get In Touch
