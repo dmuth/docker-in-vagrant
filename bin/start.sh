@@ -12,6 +12,7 @@ pushd $(dirname $0)/..  > /dev/null
 
 CONFIG_FILE="Vagrantfile"
 CONFIG_FILE_SAMPLE="Vagrantfile.sample"
+
 if test ! -f "${CONFIG_FILE}"
 then
     echo "# "
@@ -35,29 +36,6 @@ else
     echo "# VM is already running..."
 
 fi
-
-KEY_PATH="$(pwd)/.vagrant/machines/default/virtualbox/private_key"
-echo "# "
-echo "# Adding SSH key to ssh-agent..."
-echo "# "
-ssh-add ${KEY_PATH} && RETVAL=$? || RETVAL=$?
-
-if test ${RETVAL} -ne 0
-then
-    echo "! "
-    echo "! Unable to add the SSH key for this VM to ssh-agent."
-    echo "! "
-    echo "! Please make sure that ssh-agent is running and your environment variables for it as set correctly."
-    echo "! "
-    echo "! In a pinch, try this: eval \$(ssh-agent)"
-    echo "! "
-    exit ${RETVAL}
-fi
-
-echo "# "
-echo "# Removing any previous instances of 127.0.0.1:2222 from ~/.ssh/known_hosts..."
-echo "# "
-sed -i -e '/\[127.0.0.1\]:2222/d' ~/.ssh/known_hosts 
 
 echo "# "
 echo "# Testing to see if I can SSH into VM..."
@@ -91,19 +69,17 @@ then
     echo "# "
 fi
 
-echo "# Consider adding the following to .bashrc so the SSH key is loaded at login: "
 echo "# "
-echo "#     ssh-add ${KEY_PATH}"
-echo "# "
-
-echo "# "
-echo "# Also consider adding the following to \$HOME/.ssh/config: "
+echo "# Please add the following to \$HOME/.ssh/config in order to access this instance via Docker: "
 echo "# "
 echo "# Host 127.0.0.1"
 echo "#     ControlMaster auto"
 echo "#     ControlPath ~/.ssh/master-%r@%h:%p"
 echo "#     ControlPersist yes"
 echo "#     StrictHostKeyChecking no"
+echo "#     UserKnownHostsFile /dev/null"
+echo "#     IdentityFile /Users/doug/development/docker-in-vagrant/.vagrant/machines/default/virtualbox/private_key"
+echo "#     IdentitiesOnly yes"
 echo "# "
 echo "# ...it will make SSH connections persistent which should speed up Docker commands."
 echo "# "
