@@ -104,7 +104,7 @@ I tried spinning up an instance of [Splunk Lab](https://github.com/dmuth/splunk-
 I am still troubleshooting this.
 
 
-## Httpbin Issues
+### Httpbin Issues
 
 My [FastAPI Httpbin project](https://github.com/dmuth/fastapi-httpbin) doesn't behave right when
 run in development mode in a Docker container spawned by this app.  Specifically, the functionality
