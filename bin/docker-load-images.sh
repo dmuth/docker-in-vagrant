@@ -22,6 +22,11 @@ echo "# Importing Docker images.  This may take some time..."
 
 for FILE in *.image
 do
+    if test ! -f "${FILE}"
+    then
+        echo "! File '${FILE}' does not exist or is not a regular file."
+        continue
+    fi
 
     IMAGE=$(echo $FILE | sed -e "s/.image$//" -e "s|_|/|")
     FOUND=$(docker images $IMAGE | sed -n '2,$p')
