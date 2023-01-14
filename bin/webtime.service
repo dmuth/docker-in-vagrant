@@ -1,0 +1,14 @@
+
+[Unit]
+Description=Web service to print the current time of this VM for troubleshooting purposes.
+
+[Service]
+WorkingDirectory=/vagrant
+ExecStart=/vagrant/bin/time.py 1404
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
+
