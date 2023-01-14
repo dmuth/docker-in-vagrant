@@ -31,7 +31,7 @@ class time:
 
     def GET(self):
         now = datetime.utcnow(); 
-        retval = now.strftime("%Y%m%dT%H%M%SZ\n") 
+        retval = now.strftime("%Y-%m-%dT%H:%M:%SZ\n") 
         return(retval);
 
 
