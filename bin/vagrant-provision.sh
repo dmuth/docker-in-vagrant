@@ -11,11 +11,13 @@ set -e
 #
 SKIP_APT=$1
 SKIP_DOCKER=$2
-SKIP_SSH=$3
-SKIP_TIME=$4
+SKIP_DOCKER_CACHE=$3
+SKIP_SSH=$4
+SKIP_TIME=$5
+
 #echo "DEBUG: $@" # Debugging
-#echo "DEBUG: SKIP_APT=${SKIP_APT}, SKIP_DOCKER=${SKIP_DOCKER}, SKIP_SSH=${SKIP_SSH}, SKIP_TIME=${SKIP_TIME}" # Debugging
-#exit;
+#echo "DEBUG: SKIP_APT=${SKIP_APT}, SKIP_DOCKER=${SKIP_DOCKER}, SKIP_DOCKER_CACHE=${SKIP_DOCKER_CACHE}, SKIP_SSH=${SKIP_SSH}, SKIP_TIME=${SKIP_TIME}" # Debugging
+#exit; # Debugging
 
 if test ! "${SKIP_APT}" != "0"
 then
@@ -52,6 +54,12 @@ then
         exit ${RETVAL}
 
     fi
+
+fi
+
+
+if test ! "${SKIP_DOCKER_CACHE}" != "0"
+then
 
     echo "# Loading cached Docker images..."
     /vagrant/bin/docker-load-images.sh

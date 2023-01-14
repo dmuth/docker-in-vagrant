@@ -32,6 +32,11 @@ Vagrant.configure("2") do |config|
             skip_docker=0
         end
 
+        skip_docker_cache = ENV["SKIP_DOCKER_CACHE"]
+        if !skip_docker_cache or skip_docker_cache == ""
+            skip_docker_cache=0
+        end
+
         skip_ssh = ENV["SKIP_SSH"]
         if !skip_ssh or skip_ssh == ""
             skip_ssh=0
@@ -42,7 +47,7 @@ Vagrant.configure("2") do |config|
             skip_time=0
         end
 
-        s.args = "#{skip_apt} #{skip_docker} #{skip_ssh} #{skip_time} "
+        s.args = "#{skip_apt} #{skip_docker} #{skip_docker_cache} #{skip_ssh} #{skip_time} "
 
     end
 
