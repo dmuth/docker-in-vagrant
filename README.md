@@ -35,7 +35,7 @@ It is intended as a replacement for Docker Desktop for Mac OS/X users.  I've tes
 - The script will prompt you to do this, but you should add the SSH key to your agent by putting something like this inside your `.bashrc` or similar:
   - `export DOCKER_HOST=ssh://vagrant@127.0.0.1:2222"`
 - The script will also prompt you to add configuration to `$HOME/.ssh/config` so you can connect to the VM without being prompted for a password, dealing with SSH key issues, or getting "this host key has changed" warnings.
-- Finally, the script will print out some aliases to put in `$HOME/.bashrc`, which will make managing the VM easier in the future.
+- Finally, the script will display a line for you to include in `$HOME/.bashrc` to set aliases for interacting with the Docker VM.  One of them will be `docker-aliases`, which will print out those aliases.
 
 When the above steps are done, you can now run commands like `docker ps` natively in OS/X,
 they will be sent to the Docker daemon running in the VM over SSH, and results will be returned.

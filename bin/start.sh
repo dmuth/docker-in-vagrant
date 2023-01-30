@@ -84,17 +84,19 @@ echo "# "
 echo "# ...it will make SSH connections persistent which should speed up Docker commands."
 echo "# "
 
+
+DIR=$(realpath ${BASH_SOURCE})
+DIR=$(dirname ${DIR})
+FILE="${DIR}/docker-aliases-bash.sh"
+
 echo "# "
-echo "# Also consider adding these aliases to your .bashrc file to make management of this VM easier: "
+echo "# If you are using bash, consider adding this line to \$HOME/.bashrc to set some useful aliases: "
 echo "# "
-echo "# alias docker-status='$(pwd)/bin/status.sh'"
-echo "# alias docker-check-time-offset='echo \"System Time: \$(date -u +%Y-%m-%dT%H:%M:%SZ)\"; echo \"    VM Time: \$(curl -s localhost:1404/time)\"; '"
-echo "# alias docker-start='$(pwd)/bin/start.sh'"
-echo "# alias docker-stop='$(pwd)/bin/stop.sh'"
-echo "# alias docker-restart='$(pwd)/bin/restart.sh'"
-echo "# alias docker-destroy='$(pwd)/bin/destroy.sh'"
-echo "# alias docker-ssh='$(pwd)/bin/ssh.sh'"
+echo "#     . ${FILE}"
 echo "# "
+echo "# Once those aliases are set, run 'docker-aliases' to view those aliases."
+echo "# "
+
 
 echo "# Done!"
 
