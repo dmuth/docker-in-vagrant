@@ -87,8 +87,18 @@ then
     echo "# Installing web service..."
     pip3 install web.py
 
+    #
+    # We'll be copying in files instead of symlinking them, because
+    # I learned the hard way that symlinks to /vagrant/ won't work
+    # when systemd is started up.
+    #
+    # TODO: I might see if I can do a dependency in the service file.
+    #
+    cp -v /vagrant/bin/time.py /usr/local/bin/
+    chmod 755 /usr/local/bin/time.py
+
     cd /etc/systemd/system
-    ln -sf /vagrant/bin/webtime.service .
+    cp -v /vagrant/bin/webtime.service .
     systemctl daemon-reload
     systemctl enable webtime
     systemctl start webtime
