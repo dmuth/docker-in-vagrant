@@ -8,16 +8,6 @@ This project lets you deploy Docker inside of a Vagrant VM in Virtualbox.
 It is intended as a replacement for Docker Desktop for Mac OS/X users.  I've tested it with some of my open source projects, including [FastAPI Httpbin](https://github.com/dmuth/fastapi-httpbin) and [Grafana Playground](https://github.com/dmuth/grafana-playground).  I'd like to think it's bug-free, but if there are any issues, my contact info is at the bottom of this README.
 
 
-## Prerequisites
-
-- [Docker CLI tools](https://formulae.brew.sh/formula/docker)
-- [Virtualbox](https://www.virtualbox.org/)
-- [Vagrant](https://www.vagrantup.com/)
-- [Pipeviewer](https://catonmat.net/unix-utilities-pipe-viewer)
-  - This is used for watching progress.  Install with `brew install pv`.
-- `ssh-agent` should be setup
-
-
 ## Features
 
 - Easily spin up a VM with Docker already installed and running, using `bin/start.sh`.
@@ -27,18 +17,53 @@ It is intended as a replacement for Docker Desktop for Mac OS/X users.  I've tes
 - Docker images will be automatically loaded from disk outside the VM at startup with `docker-load-images.sh`.
 
 
+## Prerequisites
+
+- [Docker CLI tools](https://formulae.brew.sh/formula/docker)
+- [Virtualbox](https://www.virtualbox.org/)
+- [Vagrant](https://www.vagrantup.com/)
+- [Pipeviewer](https://catonmat.net/unix-utilities-pipe-viewer)
+  - This is used for watching progress.  Install with `brew install pv`.
+
+
 ## Installation
 
 - Clone this repo
 - Run the script `./bin/start.sh` to start the VM.
   - This will also configure the VM so that Docker is installed and can be run as a non-root user, SSH is set up to accept more simultaenous connections, etc.
-- The script will prompt you to do this, but you should add the SSH key to your agent by putting something like this inside your `.bashrc` or similar:
-  - `export DOCKER_HOST=ssh://vagrant@127.0.0.1:2222"`
-- The script will also prompt you to add configuration to `$HOME/.ssh/config` so you can connect to the VM without being prompted for a password, dealing with SSH key issues, or getting "this host key has changed" warnings.
-- Finally, the script will display a line for you to include in `$HOME/.bashrc` to set aliases for interacting with the Docker VM.  One of them will be `docker-aliases`, which will print out those aliases.
+- The script will then print out some additional configuration instructions, which I will summarize here:
+  - Run this so that when you spawn a new shell, Docker will know to talk to the VM:
+    - `echo "export DOCKER_HOST=ssh://vagrant@127.0.0.1:2222" >> $HOME/.bashrc`
+  - Run this so that aliases are set when you spawn a future shell:
+    - `echo . $(pwd)/bin/docker-aliases-bash.sh >> $HOME/.bashrc`
+  - These instructions are for the `bash` shell.  If you are using a different shell, you'll have to touch a different file.
 
-When the above steps are done, you can now run commands like `docker ps` natively in OS/X,
-they will be sent to the Docker daemon running in the VM over SSH, and results will be returned.
+Finally, add this into `$HOME/.ssh/config` so that you can connect to the VM via SSH:
+```
+Host 127.0.0.1"
+     ControlMaster auto"
+     ControlPath ~/.ssh/master-%r@%h:%p"
+     ControlPersist yes"
+     StrictHostKeyChecking no"
+     UserKnownHostsFile /dev/null"
+     IdentityFile $(pwd)/.vagrant/machines/default/virtualbox/private_key"
+     IdentitiesOnly yes"
+```
+
+**Be sure to start a new bash shell after updating your .bashrc so the changes take effect!**
+
+
+## Usage
+
+- Start by running `docker ps`, and make sure you can connect to the Docker instance.
+- Then try running `docker run hello-world` to perform a basic test of Docker
+- Some additional aliases that you may find useful:
+  - `docker-start` - Start the VM containing Docker
+  - `docker-stop` - Stop the VM containing Docker
+  - `docker-destroy` - Destroy the VM containing Docker.  This will remove any Docker images and volumes!
+  - `docker-aliases` - Show all aliases that were set up by this app
+- For troubleshooting
+  - `docker-check-time` - Check the system time versus the VM time.  Run `docker-restart` if they've fallen out of sync.
 
 
 ## Development
@@ -46,7 +71,6 @@ they will be sent to the Docker daemon running in the VM over SSH, and results w
 If you've set up the suggested aliases, they'll make development simpler.  Here are a few things
 I like to use:
 - `docker-destroy; docker-start` - Blow away and build a new VM
-- `docker-check-time` - Check the system time versus the VM time.  Run `docker-restart` if they've fallen out of sync.
 - `docker-ssh` - Open an SSH connection to the VM.
 
 
