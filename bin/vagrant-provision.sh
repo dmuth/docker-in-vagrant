@@ -62,7 +62,7 @@ if test ! "${SKIP_DOCKER_CACHE}" != "0"
 then
 
     echo "# Loading cached Docker images..."
-    /vagrant/bin/docker-load-images.sh
+    /vagrant/bin/docker-images-load.sh
 
 fi
 

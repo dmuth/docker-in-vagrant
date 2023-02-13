@@ -14,7 +14,7 @@ It is intended as a replacement for Docker Desktop for Mac OS/X users.  I've tes
 - Packages installed via `yum` will be cached to disk outside of the VM, making future builds less network intensive.
 - Sshd is configured to support up to 100 sessions to speed up operations with `docker-compose`.
 - Docker images can be saved to disk outside the VM with `docker-save-images.sh`.
-- Docker images will be automatically loaded from disk outside the VM at startup with `docker-load-images.sh`.
+- Docker images will be automatically loaded from disk outside the VM at startup with `docker-images-load.sh`.
 
 
 ## Prerequisites
@@ -81,8 +81,8 @@ I like to use:
 - `bin/restart.sh` - Restart the VM.  Will not start it if stopped.
 - `bin/stop.sh`  - This stops the VM temporarily.
 - `bin/destroy.sh` - This destroys the VM.
-- `bin/docker-load-images.sh` - This loads Docker images which were saved outside of the VM. Used by `start.sh`.
-- `bin/docker-save-images.sh` - Save existing Docker images outside of the VM. Run manually.
+- `bin/docker-images-load.sh` - This loads Docker images which were saved outside of the VM. Used by `start.sh`.
+- `bin/docker-images-save.sh` - Save existing Docker images outside of the VM. Run manually.
 - `bin/provision.sh` - Run the `vagrant provision` command.  Optional environment variables to speed up testing and debugging include:
   - `SKIP_APT`, `SKIP_DOCKER`, `SKIP_SSH`, and `SKIP_TIME`.
 
