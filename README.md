@@ -83,6 +83,7 @@ I like to use:
 - `bin/destroy.sh` - This destroys the VM.
 - `bin/docker-images-load.sh` - This loads Docker images which were saved outside of the VM. Used by `start.sh`.
 - `bin/docker-images-save.sh` - Save existing Docker images outside of the VM. Run manually.
+- `bin/docker-images-list.sh` - List all Docker images that have been saved outside of Docker.
 - `bin/provision.sh` - Run the `vagrant provision` command.  Optional environment variables to speed up testing and debugging include:
   - `SKIP_APT`, `SKIP_DOCKER`, `SKIP_SSH`, and `SKIP_TIME`.
 
