@@ -13,6 +13,9 @@ alias docker-stop="${DIR}/stop.sh"
 alias docker-restart="${DIR}/restart.sh"
 alias docker-destroy="${DIR}/destroy.sh"
 alias docker-ssh="${DIR}/ssh.sh"
+alias docker-images-save="${DIR}/docker-images-save.sh"
+alias docker-images-load="${DIR}/docker-images-load.sh"
+alias docker-images-list="${DIR}/docker-images-list.sh"
 
 
 alias docker-aliases="alias | egrep \"^alias docker-\""
