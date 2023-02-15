@@ -43,7 +43,8 @@ then
 fi
 
 
-echo "# Importing Docker images from $(realpath .).  This may take some time..."
+echo "# Importing Docker images from $(realpath .)."
+echo "# This may take some time..."
 
 for FILE in *.image
 do
@@ -62,7 +63,7 @@ do
         continue
     fi
 
-    IMAGE=$(echo $FILE | sed -e "s/.image$//" -e "s|_|/|")
+    IMAGE=$(echo $FILE | sed -e "s/.image$//" -e "s|_|/|g")
     FOUND=$(docker images $IMAGE | sed -n '2,$p')
 
     TIME_IMAGE="N/A"
@@ -79,7 +80,7 @@ do
 
     if test "${TIME_T_FILE}" -le "${TIME_T_IMAGE}"
     then
-        echo "Image ${IMAGE}: File time of ${TIME_FILE} <= image time of ${TIME_IMAGE}, skipping!"
+        echo -e "Image ${IMAGE}:\n\tFile time of ${TIME_FILE}\n\t\t<= image time of ${TIME_IMAGE}, skipping!"
         continue
     fi
 
@@ -101,7 +102,7 @@ do
     TIME_T_IMAGE=$(python3 -c "import time; import dateutil.parser as parser; retval = time.mktime(parser.parse('${TIME_IMAGE}').timetuple()); print(f'{int(retval)}')")
 
     TIME_DATE_IMAGE=$(date -r $TIME_T_IMAGE)
-    touch -d "$(date -r ${TIME_T_IMAGE} +'%Y-%m-%dT%H:%M:%S')" ${FILE}
+    touch -t "$(date -r ${TIME_T_IMAGE} +'%Y%m%d%H%M.%S')" ${FILE}
 
 done
 

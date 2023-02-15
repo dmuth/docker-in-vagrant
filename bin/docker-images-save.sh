@@ -42,9 +42,10 @@ then
     echo "# Filter '${FILTER}' is set, only matching images will be processed!"
 fi
 
-echo "# Exporting Docker images from $(realpath .).  This may take some time..."
+echo "# Exporting Docker images from $(realpath .)."
+echo "# This may take some time..."
 
-for IMAGE in $(docker images | sed -n '2,$p' | awk '{print $1 ":" $2}' | grep "${FILTER}")
+for IMAGE in $(docker images | sed -n '2,$p' | awk '{print $1 ":" $2}' | egrep -v "^<none>" | grep "${FILTER}")
 do
     
     #
@@ -52,7 +53,7 @@ do
     #
     IMAGE=$(echo ${IMAGE} | sed -e "s/:<none>$//")
 
-    FILE=$(echo "${IMAGE}" | sed -e "s|/|_|")
+    FILE=$(echo "${IMAGE}" | sed -e "s|/|_|g")
     FILE_TMP="${FILE}.tmp"
     FILE_IMAGE="${FILE}.image"
 
@@ -74,7 +75,7 @@ do
 
     if test "${TIME_T_IMAGE}" -le "${TIME_T_FILE}"
     then
-        echo "Image ${IMAGE}: Time of image ${TIME_IMAGE} <= file time of ${TIME_FILE}, skipping!"
+        echo -e "Image ${IMAGE}:\n\tTime of image ${TIME_IMAGE}\n\t\t<= file time of ${TIME_FILE}, skipping!"
         continue
     fi
 
@@ -91,7 +92,7 @@ do
     # Set the modification time of the file we just created to match that of the Docker image.
     #
     TIME_DATE_IMAGE=$(date -r $TIME_T_IMAGE)
-    touch -d "$(date -r ${TIME_T_IMAGE} +'%Y-%m-%dT%H:%M:%S')" ${FILE_TMP}
+    touch -t "$(date -r ${TIME_T_IMAGE} +'%Y%m%d%H%M.%S')" ${FILE_TMP}
 
     mv "${FILE_TMP}" "${FILE_IMAGE}"
 
