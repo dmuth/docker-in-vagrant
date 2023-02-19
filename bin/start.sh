@@ -84,7 +84,6 @@ echo "# "
 echo "# ...it will make SSH connections persistent which should speed up Docker commands."
 echo "# "
 
-
 DIR=$(realpath ${BASH_SOURCE})
 DIR=$(dirname ${DIR})
 FILE="${DIR}/docker-aliases-bash.sh"
@@ -95,6 +94,8 @@ echo "# "
 echo "#     . ${FILE}"
 echo "# "
 echo "# Once those aliases are set, run 'docker-aliases' to view those aliases."
+echo "# "
+echo "# If you are restorting a previous VM, consider running 'docker-images-load' to reload Docker images you were working with."
 echo "# "
 
 

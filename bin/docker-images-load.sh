@@ -46,9 +46,19 @@ fi
 echo "# Importing Docker images from $(realpath .)."
 echo "# This may take some time..."
 
+echo "# Checking to see if Python datetime module is installed..."
+FOUND=$(pip3 list | grep python-dateutil || true)
+if test ! "${FOUND}"
+then
+    echo "# Python module datetime not installed, installing it..."
+    pip install python-dateutil
+fi
+
+
 for FILE in *.image
 do
 
+    #echo "DEBUG: ${FILE}" # Debugging
     #
     # Skip anything that doesn't match our filter.
     #

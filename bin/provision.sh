@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Force provisionig our Vagrant instance
+# Force provisioning our Vagrant instance
 #
 
 # Fail on error 
