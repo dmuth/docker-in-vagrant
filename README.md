@@ -90,6 +90,13 @@ I like to use:
 
 ## Frequently asked questions
 
+
+### FAQ: I can't mount any directories in Docker!
+
+- Edit `Vagrantfile`, look for the section with `config.vm.synced_folder`, and add the directory you'd like to be able to mount
+- Run `docker-restart` to restart the VM.
+
+
 ### FAQ: You get a "Permission denied (public key)" error when trying to use a Docker command.
 
 Did you add the key to `ssh-agent`?  If so, did you destroy and rebuild the instance?  You'll need to re-add the key since a new SSH key was generated as part of that process.
