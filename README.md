@@ -148,7 +148,11 @@ I tried spinning up an instance of [Splunk Lab](https://github.com/dmuth/splunk-
 11-15-2022 01:45:31.042 +0000 ERROR StreamGroup [217 IndexerTPoolWorker-0] - failed to drain remainder total_sz=24 bytes_freed=7977 avg_bytes_per_iv=332 sth=0x7fb586dfdba0: [1668476729, /opt/splunk/var/lib/splunk/_internaldb/db/hot_v1_1, 0x7fb587f7e840] reason=st_sync failed rc=-6 warm_rc=[-35,1]
 ```
 
-I am still troubleshooting this.
+Best I can figure for a root cause is that Splunk does some low-level filesystem things that don't play nicely with how VirtualBox does directory mounting to the host OS.  To work around this, disable sharing of Splunk's data directory by setting `SPLUNK_DATA=no`, like this:
+
+`SPLUNK_DATA=no SPLUNK_EVENTGEN=yes ./go.sh`
+
+By doing this, any data ingested into Spunk will not persist between runs.  But to be fair, Splunk Lab is meant for development usage of Splunk, not long-term usage.
 
 
 ### Httpbin Issues
