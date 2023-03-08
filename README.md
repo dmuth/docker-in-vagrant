@@ -40,7 +40,7 @@ It is intended as a replacement for Docker Desktop for Mac OS/X users.  I've tes
 
 Finally, add this into `$HOME/.ssh/config` so that you can connect to the VM via SSH:
 ```
-Host 127.0.0.1"
+Host 127.0.0.1
      ControlMaster auto"
      ControlPath ~/.ssh/master-%r@%h:%p"
      ControlPersist yes"
