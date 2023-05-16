@@ -72,6 +72,11 @@ Vagrant.configure("2") do |config|
     config.vm.network "forwarded_port", guest: 1404, host: 1404, host_ip: "127.0.0.1"
 
     #
+    # Localstack
+    #
+    config.vm.network "forwarded_port", guest: 4566, host: 4566, host_ip: "127.0.0.1"
+
+    #
     # Mount our current directory in /vagrant (default)
     #
     config.vm.synced_folder ".", "/vagrant"
